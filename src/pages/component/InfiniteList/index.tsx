@@ -71,6 +71,12 @@ class InfinitelList extends React.Component<InfinitelListProps, InfinitelListSta
                     className={styles['infinite-list-phantom']} 
                     style={{ height: `${listHeight}px` }}
                 />
+                <div 
+                    className={styles['infinite-list']}
+                    // style={{ transform: `translate3d(0, ${startOffset}px, 0)` }}
+                >
+                    <span>222</span>
+                </div>
             </div>
         );
     }
