@@ -1,4 +1,4 @@
-defaultSeverity: error
+defaultSeverity: none
 extends:
   - tslint-react
   - tslint-eslint-rules

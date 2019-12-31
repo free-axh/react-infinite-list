@@ -1,21 +1,21 @@
-import React from 'react'
+import React from "react";
 
-import styles from './index.less'
+import styles from "./index.less";
 
 interface InfinitelListProps {
-    dataSource: Array<any>,
-    screenHeight: number,
+    dataSource: any[];
+    screenHeight: number;
 }
 
 interface InfinitelListState {
-    listHeight: number,
-    itemSize: number,
-    startOffset: number,
-    visibleData: Array<any>,
+    listHeight: number;
+    itemSize: number;
+    startOffset: number;
+    visibleData: any[];
 }
 
 class InfinitelList extends React.Component<InfinitelListProps, InfinitelListState> {
-    constructor(props:InfinitelListProps) {
+    constructor(props: InfinitelListProps) {
         super(props);
         this.state = {
             listHeight: 0, // 列表总高度
@@ -26,11 +26,11 @@ class InfinitelList extends React.Component<InfinitelListProps, InfinitelListSta
         this.onScroll = this.onScroll.bind(this);
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.load(0);
     }
 
-    load = (scrollTop:number) => {
+    public load = (scrollTop: number) => {
         const { dataSource, screenHeight } = this.props;
         const { itemSize } = this.state;
         // 列表总高度
@@ -38,7 +38,7 @@ class InfinitelList extends React.Component<InfinitelListProps, InfinitelListSta
         // 可显示的列表项数
         const visibleCount = Math.ceil(screenHeight / itemSize);
         // 数据的起始索引
-        const start = Math.floor(scrollTop/itemSize);
+        const start = Math.floor(scrollTop / itemSize);
         // 数据结束索引
         const end = start + visibleCount;
         // 列表显示数据
@@ -52,30 +52,37 @@ class InfinitelList extends React.Component<InfinitelListProps, InfinitelListSta
         });
     }
 
-    onScroll = (e:any) => {
+    public onScroll = (e: any) => {
         this.load(e.target.scrollTop);
     }
 
-    
-
-
-    render() {
+    public render() {
         const { visibleData, listHeight, itemSize, startOffset } = this.state;
 
         return (
-            <div 
-                className={styles['infinite-list-container']} 
+            <div
+                className={styles["infinite-list-container"]}
                 onScroll={this.onScroll}
             >
-                <div 
-                    className={styles['infinite-list-phantom']} 
+                <div
+                    className={styles["infinite-list-phantom"]}
                     style={{ height: `${listHeight}px` }}
                 />
-                <div 
-                    className={styles['infinite-list']}
+                <div
+                    className={styles["infinite-list"]}
                     style={{ transform: `translate3d(0, ${startOffset}px, 0)` }}
                 >
-                    <span>222</span>
+                    {
+                        visibleData.map((item) => (
+                            <div
+                                className={styles["infinite-list-item"]}
+                                style={{ height: `${itemSize}px` }}
+                                key={item.id}
+                            >
+                                {item.value}
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         );
